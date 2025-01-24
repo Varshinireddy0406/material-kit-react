@@ -1,44 +1,47 @@
-import 'src/global.css';
+// src/pages/Login.tsx
+import React, { useState } from 'react';
+import { TextField, Button, Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-import Fab from '@mui/material/Fab';
+const LoginPage = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-import { Router } from 'src/routes/sections';
-
-import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
-
-import { ThemeProvider } from 'src/theme/theme-provider';
-
-import { Iconify } from 'src/components/iconify';
-
-// ----------------------------------------------------------------------
-
-export default function App() {
-  useScrollToTop();
-
-  const githubButton = (
-    <Fab
-      size="medium"
-      aria-label="Github"
-      href="https://github.com/minimal-ui-kit/material-kit-react"
-      sx={{
-        zIndex: 9,
-        right: 20,
-        bottom: 20,
-        width: 44,
-        height: 44,
-        position: 'fixed',
-        bgcolor: 'grey.800',
-        color: 'common.white',
-      }}
-    >
-      <Iconify width={24} icon="eva:github-fill" />
-    </Fab>
-  );
+  const handleLogin = () => {
+    // In a real scenario, you would validate credentials here (Firebase, API, etc.)
+    if (username === 'admin' && password === 'password') {
+      navigate('/dashboard');
+    } else {
+      alert('Invalid credentials');
+    }
+  };
 
   return (
-    <ThemeProvider>
-      <Router />
-      {githubButton}
-    </ThemeProvider>
+    <Box sx={{ width: 300, margin: 'auto', padding: 3 }}>
+      <Typography variant="h4" gutterBottom>Login</Typography>
+      <TextField
+        label="Username"
+        variant="outlined"
+        fullWidth
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        sx={{ marginBottom: 2 }}
+      />
+      <TextField
+        label="Password"
+        variant="outlined"
+        fullWidth
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        sx={{ marginBottom: 2 }}
+      />
+      <Button variant="contained" onClick={handleLogin} fullWidth>
+        Login
+      </Button>
+    </Box>
   );
-}
+};
+
+export default LoginPage;

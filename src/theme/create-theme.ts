@@ -1,6 +1,6 @@
+// src/theme/create-theme.ts
 import type { Theme } from '@mui/material/styles';
-
-import { experimental_extendTheme as extendTheme } from '@mui/material/styles';
+import { createTheme as muiCreateTheme } from '@mui/material/styles';
 
 import { shadows, typography, components, colorSchemes, customShadows } from './core';
 
@@ -18,7 +18,7 @@ export function createTheme(): Theme {
     shouldSkipGeneratingVar,
   };
 
-  const theme = extendTheme(initialTheme);
+  const theme = muiCreateTheme(initialTheme);
 
   return theme;
 }
@@ -37,9 +37,7 @@ function shouldSkipGeneratingVar(keys: string[], value: string | number): boolea
     'unstable_sxConfig',
   ];
 
-  const skipPaletteKeys: {
-    [key: string]: string[];
-  } = {
+  const skipPaletteKeys: { [key: string]: string[] } = {
     global: ['tonalOffset', 'dividerChannel', 'contrastThreshold'],
     grey: ['A100', 'A200', 'A400', 'A700'],
     text: ['icon'],
